@@ -1,39 +1,37 @@
 //TODO: STEP 1 - Import the useState hook.
-import React from "react";
+import React, { useState } from "react";
 import BottomRow from "./BottomRow";
 import "./App.css";
+import Score from "./components/Score";
+import Button from "./components/Button"
 
 function App() {
   //TODO: STEP 2 - Establish your applictaion's state with some useState hooks.  You'll need one for the home score and another for the away score.
 
+  const [ homeScore, setHomeScore ] = useState(0)
+  const [ awayScore, setAwayScore ] = useState(0)
+
+
+
   return (
+    
     <div className="container">
       <section className="scoreboard">
         <div className="topRow">
-          <div className="home">
-            <h2 className="home__name">Lions</h2>
-
-            {/* TODO STEP 3 - We need to change the hardcoded values in these divs to accept dynamic values from our state. */}
-            <div className="home__score">32</div>
-          </div>
+          <Score teamName="Lions" className="home" score={homeScore}/>
           <div className="timer">00:03</div>
-          <div className="away">
-            <h2 className="away__name">Tigers</h2>
-            <div className="away__score">32</div>
-          </div>
+          <Score teamName="Tigers" className="away" score={awayScore}/>
         </div>
         <BottomRow />
       </section>
       <section className="buttons">
         <div className="homeButtons">
-
-          {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
-          <button className="homeButtons__touchdown">Home Touchdown</button>
-          <button className="homeButtons__fieldGoal">Home Field Goal</button>
+          <Button className="homeButtons__fieldGoal" score={homeScore} label="Home Field Goal" points={3} setter={setHomeScore}/>
+          <Button className="homeButtons__touchdown" score={homeScore} label="Home Field Touchdown" points={7} setter={setHomeScore} />
         </div>
         <div className="awayButtons">
-          <button className="awayButtons__touchdown">Away Touchdown</button>
-          <button className="awayButtons__fieldGoal">Away Field Goal</button>
+          <Button className="awayButtons__fieldGoal" score={awayScore} label="Away Field Goal" points={3} setter={setAwayScore} />
+          <Button className="awayButtons__touchdown" score={awayScore} label="Away Touchdown" points={7} setter={setAwayScore} />
         </div>
       </section>
     </div>
